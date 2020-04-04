@@ -105,7 +105,7 @@ class AgoraStream {
     }
 
     createListeners() {
-        this.client.on("stream-added", function (evt) {
+        this.client.on("stream-added", (evt) =>{
             let stream = evt.stream;
             let id = stream.getId();
             consoleUtil('agora', "New stream added: " + id);
@@ -157,6 +157,7 @@ class AgoraStream {
             consoleUtil('agora', "Got stream-subscribed event");
             consoleUtil('agora', new Date().toLocaleTimeString());
             consoleUtil('agora', "Subscribe remote stream successfully: " + stream.getId());
+            store.dispatch(agoraActions.agoraAddNormalStream(stream));
             // addStream(stream);
         });
 
