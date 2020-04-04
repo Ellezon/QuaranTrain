@@ -1,0 +1,41 @@
+.user-box {
+  width: fit-content;
+  height: 40px;
+  min-width: 100px;
+  background: rgba(255, 255, 255, 0.35);
+  padding: .8vw 2vw .8vw .8vw;
+  border-radius: 1000px;
+  display: inline-flex;
+  backdrop-filter: blur(10px);
+  justify-content: center;
+  align-items: center;
+  color: white;
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    background-size: contain!important;
+    border-radius: 1000px;
+  }
+
+  .content {
+    margin: 0 15px 0 5px;
+    display: inline-block;
+    vertical-align: top;
+
+    .username {
+      font-weight: 400;
+    }
+  }
+
+  .subbed {
+    width: 35px;
+    height: 35px;
+    border-radius: 1000px;
+    display: inline-block;
+    background: #f2561c url('../../styles/images/add.svg') no-repeat center center;
+    opacity: .8;
+    background-size: 50%;
+  }
+}

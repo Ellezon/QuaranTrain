@@ -7,6 +7,7 @@ const initialState = {
     isInitiated:   false,
     clientRole:    undefined,
     currentStream: undefined,
+    isStreaming:   false,
 };
 
 const initAgora = (state) => update( state, {
@@ -15,6 +16,7 @@ const initAgora = (state) => update( state, {
 
 const setCurrentStream = (state, { payload }) => update( state, {
     currentStream: { $set: payload },
+    isStreaming:   { $set: true },
 } );
 
 const setClientRole = (state, { payload }) => update( state, {
@@ -23,6 +25,7 @@ const setClientRole = (state, { payload }) => update( state, {
 
 const resetStream = (state) => update( state, {
     currentStream: { $set: undefined },
+    isStreaming:   { $set: false },
 } );
 
 // Reducer
