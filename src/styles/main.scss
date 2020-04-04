@@ -6,12 +6,15 @@
 @import './components/_register.scss';
 @import 'footer.scss';
 
-
-*, html {
+*,
+html {
   box-sizing: border-box;
 }
 
-html, body {
+#root,
+#app,
+html,
+body {
   max-width: 100%;
   position: relative;
   font-size: 14px;
@@ -19,6 +22,24 @@ html, body {
   font-family: Roboto, sans-serif;
   height: 100vh;
   overflow: hidden;
-  padding-top: 5vh;
+  position: relative;
+
 }
 
+.error {
+  left: 0;
+  position: ABSOLUTE;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  padding: 6%;
+  background: #f81111;
+  color: white;
+  transition-property: opacity;
+  transition-duration: .5s;
+
+  opacity: 0;
+  &.is-visible{
+    opacity: 1;
+  }
+}

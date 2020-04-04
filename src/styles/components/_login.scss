@@ -1,20 +1,18 @@
 .login-page {
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
   background: #fafafa;
-  padding: 25vh 5vw;
+  padding: 10%;
+  height: 87%;
+  margin-top: calc(1vh * 7 );
 
   article {
-    margin-bottom: 10rem;
-
     h1 {
-      font-size: 2.5rem;
+      font-size: 25px;
       margin-bottom: 2vw;
-    }
-
-    q {
-      font-size: 2rem;
     }
 
   }
@@ -28,8 +26,7 @@
       width: 100%;
       padding: 10px;
       text-transform: capitalize;
-      margin: 1.5rem 0;
-      font-size: 2.5rem;
+      margin: 8px 0;
       border: 1px solid $black;
     }
   }

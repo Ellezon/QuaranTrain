@@ -32,7 +32,7 @@ class App extends React.Component {
             <button onClick={() => authFns.googleSignIn()}>Log In</button>;
 
         return (
-            <div>
+            <div id="app">
                 <Header />
                 <div className='login-page'>
                     <article>
@@ -43,8 +43,8 @@ class App extends React.Component {
                         {authButton}
                         <button onClick={this.renderSignUp}>Sign Up</button>
                     </div>
-                    <Footer/>
                 </div>
+                <Footer/>
             </div>
         )
     };
@@ -56,10 +56,9 @@ class App extends React.Component {
             <button onClick={() => authFns.googleSignIn()}>Log In</button>
 
         return (
-        <div>
-            <Header />
+        <>
             { isSignUp ? <RegisterForm/> : this.renderIntro()}
-        </div>
+        </>
         )
     }
 

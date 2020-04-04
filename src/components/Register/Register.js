@@ -1,20 +1,40 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm, formValueSelector } from 'redux-form'
+import { connect } from 'react-redux'
+import classNames from 'classNames';
+
+import * as authFns from "@/utils/authentication.util";
 
 class RegisterForm extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            errorMsg: false
+        }
     }
 
-    componentDidMount() {
-
+    handleSubmit = async (event) => {
+        // Prevent reload
+        event.preventDefault();
+        const { email, password, passwordConfirmation } = this.props;
+        let err = null;
+        if (password.localeCompare(passwordConfirmation) === 0) {
+            err = await authFns.emailSignUp(email, password);
+        } else {
+            err = { message: 'Passwords do not match' };
+        }
+        if (err) {
+            this.setState({ errorMsg: err.message });
+            setTimeout(() => this.setState({ errorMsg: false }), 2000);
+        }
     }
 
     render() {
-        const { handleSubmit } = this.props;
+        const { errorMsg } = this.state;
+        const errorClasses = classNames('error', { 'is-visible': errorMsg });
         return (
             <div className='registration-page'>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={(event) => this.handleSubmit(event)}>
                     <div>
                         <label htmlFor="firstName">First Name</label>
                         <Field name="firstName" component="input" type="text" />
@@ -44,6 +64,9 @@ class RegisterForm extends React.Component {
                         <a href="#">Sign in</a>
                     </p>
                 </div>
+                <div className={errorClasses}>
+                    {errorMsg}
+                </div>
             </div>
         )
     }
@@ -53,5 +76,22 @@ RegisterForm = reduxForm({
     form: 'registerForm',
 })(RegisterForm);
 
+const selector = formValueSelector('registerForm')
+RegisterForm = connect(state => {
+    const {
+        firstName,
+        lastName,
+        email,
+        password,
+        passwordConfirmation
+    } = selector(state, 'firstName', 'lastName', 'email', 'password', 'passwordConfirmation');
+    return {
+        firstName,
+        lastName,
+        email,
+        password,
+        passwordConfirmation
+    }
+})(RegisterForm)
 
 export default RegisterForm;

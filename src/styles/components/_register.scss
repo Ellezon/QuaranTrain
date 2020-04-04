@@ -1,5 +1,8 @@
 .registration-page {
-  padding-top: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 10%;
 
   form {
     width: 90%;
@@ -9,14 +12,12 @@
   input {
     display: block;
     border: 1px solid $black;
-    margin: 0 auto;
+    margin: 8px auto 16px auto;
     width: 100%;
-    padding: .6rem;
+    padding: 8px;
+    border-radius: 20px;
   }
 
-  label {
-    font-size: .5rem;
-  }
 
   button {
     display: block;
