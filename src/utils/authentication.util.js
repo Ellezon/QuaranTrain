@@ -1,18 +1,26 @@
 import { googleProvider, authentication } from '@/utils/firebase.util.js';
 
 export const emailSignUp = (email, password) => {
-  authentication.createUserWithEmailAndPassword(email, password).catch(function (error) {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log(errorCode, errorMessage);
+  return new Promise(function (resolve, error) {
+    authentication.createUserWithEmailAndPassword(email, password)
+      .then(doc => {
+        resolve(doc.data());
+      })
+      .catch(err => {
+        resolve(err);
+      });
   });
 }
 
 export const emailSignIn = (email, password) => {
-  authentication.signInWithEmailAndPassword(email, password).catch(function (error) {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log(errorCode, errorMessage);
+  return new Promise(function (resolve, error) {
+     authentication.signInWithEmailAndPassword(email, password)
+     .then(doc => {
+      resolve(doc.data());
+    })
+    .catch(err => {
+      resolve(err);
+    });
   });
 };
 
