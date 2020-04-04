@@ -12,21 +12,19 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        authentication.getRedirectResult().then(function (result) {
-            if (result.credential) {
-              // This gives you a Google Access Token. You can use it to access the Google API.
-              var token = result.credential.accessToken;
+        authentication.getRedirectResult().then(async (result) => {
+            if (result) {
+                const user = await dbFns.getStudent(result.user.uid);
+                if (!user) {
+                    const profileInfo = result.additionalUserInfo.profile;
+                    dbFns.addStudent(result.user.uid, profileInfo.given_name, profileInfo.family_name, profileInfo.picture, profileInfo.email);
+                }
+                return result;
             }
-            
-            const user = dbFns.getStudent(result.user.uid);
-            if(!user){
-                dbFns.addStudent(result.user.uid, result.user.displayName, result.user.photoURL,result.user.email);
-            }
-            return result;
-          }).catch(function (error) {
+        }).catch(function (error) {
             console.log(error);
             return false;
-          });
+        });
         authentication.onAuthStateChanged((user) => { this.setState({ user }) });
     }
 
@@ -34,7 +32,7 @@ class App extends React.Component {
         const { user } = this.state;
         const authButton = user ?
             <button onClick={() => authFns.googleSignOut()}>Log Out</button> :
-            <button onClick={() =>  authFns.googleSignIn()}>Log In</button>
+            <button onClick={() => authFns.googleSignIn()}>Log In</button>
         return (
             <div>
                 {authButton}
