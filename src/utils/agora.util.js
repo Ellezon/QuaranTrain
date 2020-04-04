@@ -2,9 +2,10 @@ import AgoraRTC from "agora-rtc-sdk";
 
 import consoleUtil from '@/utils/console.util';
 
-import { APP_ID, RESOLUTION_ARR, SHARE_ID } from "@/constants/agora";
+import { APP_ID, clientRoles, RESOLUTION_ARR, SHARE_ID } from "@/constants/agora";
 import store from "@/redux/createStore";
 import agoraActions from "@/redux/reducers/agora/actions";
+import { getAgoraCurrentStream } from "@/redux/reducers/agora/selectors";
 
 class AgoraStream {
     constructor() {
@@ -16,7 +17,7 @@ class AgoraStream {
 
     initClient = () => {
         const client = AgoraRTC.createClient({
-            mode: 'rtc',
+            mode: 'live',
             codec: 'h264',
         });
 
@@ -30,7 +31,18 @@ class AgoraStream {
         this.createListeners();
     };
 
-    async joinChannel(channelName, quaranUserID) {
+    async joinChannel(channelName, quaranUserID, watch) {
+        const clientRole = watch ? clientRoles.audience : clientRoles.host;
+
+        this.client.setClientRole(clientRole, function(e) {
+            if (!e) {
+                store.dispatch(agoraActions.agoraSetClientRole(clientRole));
+                consoleUtil('agora', `setHost success ${clientRole}`);
+            } else {
+                consoleUtil('agora', "setHost error", e);
+            }
+        });
+
         return new Promise((resolve, error) => {
             this.client.join(
                 null, // if server is secure pass security token
@@ -40,7 +52,9 @@ class AgoraStream {
                     consoleUtil('agora', `User ${uid} join channel successfully`);
                     consoleUtil('agora', new Date().toLocaleTimeString());
                     this.channelUID = uid;
-                    this.createStream();
+                    if (!watch) {
+                        this.createStream();
+                    }
                 },
                 err => {
                     console.error(err);
@@ -96,7 +110,7 @@ class AgoraStream {
         //     options.displayMode = options.displayMode === 1 ? 0 : options.displayMode;
         // }
 
-        store.dispatch(agoraActions.agoraAddMainStream(this.stream));
+        store.dispatch(agoraActions.agoraSetCurrentStream(this.stream));
         consoleUtil('agora', this.streamList);
         //
         // for (let streamobj of streamList) {
@@ -111,7 +125,7 @@ class AgoraStream {
             consoleUtil('agora', "New stream added: " + id);
             consoleUtil('agora', new Date().toLocaleTimeString());
             consoleUtil('agora', "Subscribe ", stream);
-            store.dispatch(agoraActions.agoraAddNormalStream(stream));
+            store.dispatch(agoraActions.agoraSetCurrentStream(stream));
             // if (id === SHARE_ID) {
             //     options.displayMode = 2;
             //     this.mainId = id;
@@ -129,6 +143,12 @@ class AgoraStream {
             this.client.subscribe(stream, function (err) {
                 consoleUtil('agora', "Subscribe stream failed", err);
             });
+        });
+
+        this.client.on("peer-enter", function (evt) {
+            let id = evt.uid;
+            consoleUtil('agora', "Peer has entered: " + id);
+            consoleUtil('agora', new Date().toLocaleTimeString());
         });
 
         this.client.on("peer-leave", function (evt) {
@@ -157,7 +177,7 @@ class AgoraStream {
             consoleUtil('agora', "Got stream-subscribed event");
             consoleUtil('agora', new Date().toLocaleTimeString());
             consoleUtil('agora', "Subscribe remote stream successfully: " + stream.getId());
-            store.dispatch(agoraActions.agoraAddNormalStream(stream));
+            store.dispatch(agoraActions.agoraSetCurrentStream(stream));
             // addStream(stream);
         });
 
@@ -181,6 +201,21 @@ class AgoraStream {
             //     mainStream = getStreamById(mainId);
             // }
             // removeStream(stream.getId());
+        });
+    }
+
+    leaveChannel() {
+        const currentStream = getAgoraCurrentStream(store.getState());
+
+        currentStream.stream.getTracks().forEach(function(track) {
+            track.stop();
+        });
+        this.client.leave(function() {
+            consoleUtil('agora', 'client leaves channel');
+            store.dispatch(agoraActions.agoraExitStream());
+        }, function(err) {
+            consoleUtil('agora', 'client leave failed');
+            //error handling
         });
     }
 

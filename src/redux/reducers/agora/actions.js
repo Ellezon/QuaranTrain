@@ -6,16 +6,21 @@ export default {
             type: localTypes.AGORA_CLIENT_INITIALIZED,
         };
     },
-    agoraAddMainStream(stream) {
+    agoraSetCurrentStream(stream) {
         return {
-            type: localTypes.AGORA_ADD_MAIN_STREAM,
+            type: localTypes.AGORA_SET_CURRENT_STREAM,
             payload: stream,
         };
     },
-    agoraAddNormalStream(stream) {
+    agoraSetClientRole(clientRole) {
         return {
-            type: localTypes.AGORA_ADD_LOCAL_STREAM,
-            payload: stream,
+            type: localTypes.AGORA_SET_CLIENT_ROLE,
+            payload: clientRole,
+        };
+    },
+    agoraExitStream() {
+        return {
+            type: localTypes.AGORA_EXIT_STREAM,
         };
     },
 };
