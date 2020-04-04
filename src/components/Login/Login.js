@@ -46,8 +46,8 @@ class LoginForm extends React.Component {
 
                     <button type="submit">Log In</button>
                 </form>
-                <div className="account-exists">
-                        <a href="/">Go back</a>
+                <div className="small-text">
+                    <a href="/">Go back</a>
                 </div>
                 <div className={errorClasses}>
                     {errorMsg}

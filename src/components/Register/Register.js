@@ -33,7 +33,7 @@ class RegisterForm extends React.Component {
         const { errorMsg } = this.state;
         const errorClasses = classNames('error', { 'is-visible': errorMsg });
         return (
-            <div className='registration-page'>
+            <div className='login-page'>
                 <form onSubmit={(event) => this.handleSubmit(event)}>
                     <div>
                         <label htmlFor="firstName">First Name</label>
@@ -57,13 +57,14 @@ class RegisterForm extends React.Component {
                     </div>
                     <button type="submit">Sign Up</button>
                 </form>
-
-                <div className="account-exists">
+                <div className="small-text">
                     <p>
                         Already have an account?
                         <a href="#">Sign in</a>
                     </p>
+                    <a href="/">Go back</a>
                 </div>
+
                 <div className={errorClasses}>
                     {errorMsg}
                 </div>

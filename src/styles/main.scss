@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin-ext');
 @import './_reset.scss';
-@import './variables.scss';
-@import './components/_login.scss';
+@import './_variables.scss';
+@import './components/app.scss';
 @import './components/_header.scss';
 @import './components/_register.scss';
-@import 'footer.scss';
+@import './components/_footer.scss';
 
 *,
 html {
