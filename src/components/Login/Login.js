@@ -4,12 +4,7 @@ import * as authFns from '@/utils/authentication.util.js';
 import * as dbFns from '@/utils/database.util.js';
 
 import RegisterForm from "@/components/Register/Register";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
+
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -41,7 +36,6 @@ class Login extends React.Component {
             <button onClick={() => authFns.googleSignOut()}>Log Out</button> :
             <button onClick={() => authFns.googleSignIn()}>Log In</button>
         return (
-            <Router>
                 <div className='login-page'>
                     <article>
                         <h1>Stay in and stay in shape</h1>
@@ -49,25 +43,8 @@ class Login extends React.Component {
                     </article>
                     <div className="login-page-actions">
                         {authButton}
-                        <Link to='/register'>
-                            trikki
-                        </Link>
                     </div>
                 </div>
-
-
-                <div>
-                        <Switch>
-                            <Route path='/login'>
-                                <Login />
-                            </Route>
-                            <Route path='/register'>
-                                <RegisterForm/>
-                            </Route>
-                            <Route path='/register' component={RegisterForm} />
-                        </Switch>
-                </div>
-            </Router>
         )
     }
 }

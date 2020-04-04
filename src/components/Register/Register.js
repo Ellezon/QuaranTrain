@@ -7,6 +7,7 @@ class RegisterForm extends React.Component {
     }
 
     componentDidMount() {
+
     }
 
     render() {
