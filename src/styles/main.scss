@@ -1,0 +1,11 @@
+@import 'variables.scss';
+@import 'footer.scss';
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin-ext');
+
+html, body {
+  max-width: 100%;
+  position: relative;
+  font-size: 14px;
+  margin: 0;
+  font-family: 'Roboto';
+}

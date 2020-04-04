@@ -3,6 +3,8 @@ import { authentication } from '@/utils/firebase.util.js';
 import * as authFns from '@/utils/authentication.util.js';
 import * as dbFns from '@/utils/database.util.js';
 
+import Footer from '@/components/footer.js';
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -34,9 +36,12 @@ class App extends React.Component {
             <button onClick={() => authFns.googleSignOut()}>Log Out</button> :
             <button onClick={() => authFns.googleSignIn()}>Log In</button>
         return (
+            <>
             <div>
                 {authButton}
             </div>
+            <Footer/>
+            </>
         )
     }
 }
