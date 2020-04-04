@@ -13,10 +13,15 @@ export const emailSignUp = (email, password) => {
 }
 
 export const emailSignIn = (email, password) => {
-    return authentication.signInWithEmailAndPassword(email, password)
-      .catch(function (error) {
-      throw error;
+  return new Promise(function (resolve, error) {
+     authentication.signInWithEmailAndPassword(email, password)
+     .then(doc => {
+      resolve(doc.data());
     })
+    .catch(err => {
+      resolve(err);
+    });
+  });
 };
 
 export const googleSignIn = () => {

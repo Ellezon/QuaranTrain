@@ -1,53 +1,76 @@
 import React from 'react';
-import { authentication } from '@/utils/firebase.util.js';
-import * as authFns from '@/utils/authentication.util.js';
-import * as dbFns from '@/utils/database.util.js';
+import { Field, reduxForm, formValueSelector } from 'redux-form'
+import { connect } from 'react-redux'
+import classNames from 'classNames';
 
-import RegisterForm from "@/components/Register/Register";
+import * as authFns from "@/utils/authentication.util";
 
-class Login extends React.Component {
+class LoginForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: null,
-        };
+            errorMsg: false,
+        }
     }
 
-    componentDidMount() {
-        authentication.getRedirectResult().then(async (result) => {
-            if (result) {
-                const user = await dbFns.getStudent(result.user.uid);
-                if (!user) {
-                    const profileInfo = result.additionalUserInfo.profile;
-                    dbFns.addStudent(result.user.uid, profileInfo.given_name, profileInfo.family_name, profileInfo.picture, profileInfo.email);
-                }
-                return result;
+    handleSubmit = async (event) => {
+        // Prevent reload
+        event.preventDefault();
+        const { email, password } = this.props;
+        const err = await authFns.emailSignIn(email, password);
+      
+        if (err) {
+            if(err.message === 'There is no user record corresponding to this identifier. The user may have been deleted.')
+            {
+                err.message = 'Incorrect email entered';
             }
-        }).catch(function (error) {
-            console.log(error);
-            return false;
-        });
-        authentication.onAuthStateChanged((user) => { this.setState({ user }) });
+            this.setState({ errorMsg: err.message });
+            setTimeout(() => this.setState({ errorMsg: false }), 2000);
+        }
     }
 
     render() {
-        const { user } = this.state;
-        const authButton = user ?
-            <button onClick={() => authFns.googleSignOut()}>Log Out</button> :
-            <button onClick={() => authFns.googleSignIn()}>Log In</button>
+        const { errorMsg } = this.state;
+        const errorClasses = classNames('error', { 'is-visible': errorMsg });
         return (
-                <div className='login-page'>
-                    <article>
-                        <h1>Stay in and stay in shape</h1>
-                        <q>If you think lifting is dangerous, try being weak</q>
-                    </article>
-                    <div className="login-page-actions">
-                        {authButton}
+            <div className='registration-page'>
+                <form onSubmit={(event) => this.handleSubmit(event)}>
+                    <div>
+                        <label htmlFor="email">Email</label>
+                        <Field name="email" component="input" type="email" />
                     </div>
+                    <div>
+                        <label htmlFor="password">Password</label>
+                        <Field name="password" component="input" type="password" />
+                    </div>
+
+                    <button type="submit">Log In</button>
+                </form>
+                <div className="account-exists">
+                        <a href="/">Go back</a>
                 </div>
+                <div className={errorClasses}>
+                    {errorMsg}
+                </div>
+            </div>
         )
     }
 }
 
+LoginForm = reduxForm({
+    form: 'loginForm',
+})(LoginForm);
 
-export default Login;
+const selector = formValueSelector('loginForm')
+LoginForm = connect(state => {
+    const {
+        email,
+        password,
+    } = selector(state, 'email', 'password');
+    return {
+        email,
+        password,
+    }
+})(LoginForm)
+
+export default LoginForm;
