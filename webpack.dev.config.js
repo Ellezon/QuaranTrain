@@ -7,7 +7,7 @@ module.exports = {
     entry: {
         main: ['babel-polyfill', './src/main.js'],
     },
-    devtool: 'inline-source-map',
+    devtool:   'eval-source-map',
     devServer: {
         contentBase: './src', // where dev server will look for static files, not compiled
         publicPath: '/', //relative path to output path where  devserver will look for compiled files
