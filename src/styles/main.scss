@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin-ext');
 @import './_reset.scss';
 @import './variables.scss';
 @import './components/_login.scss';
 @import './components/_header.scss';
+@import './components/_register.scss';
 @import 'footer.scss';
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin-ext');
+
 
 *, html {
   box-sizing: border-box;
@@ -14,6 +16,9 @@ html, body {
   position: relative;
   font-size: 14px;
   margin: 0;
-  font-family: 'Roboto';
+  font-family: Roboto, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  padding-top: 5vh;
 }
 

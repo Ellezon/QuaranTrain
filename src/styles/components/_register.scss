@@ -1,0 +1,42 @@
+.registration-page {
+  padding-top: 10rem;
+
+  form {
+    width: 90%;
+    margin: 0 auto 2rem auto;
+  }
+
+  input {
+    display: block;
+    border: 1px solid $black;
+    margin: 0 auto;
+    width: 100%;
+    padding: .6rem;
+  }
+
+  label {
+    font-size: .5rem;
+  }
+
+  button {
+    display: block;
+    width: 85%;
+    padding: .75rem;
+    margin: 3rem auto;
+    text-align: center;
+    border: 1px solid $black;
+    box-shadow: 4px 2px 4px #000;
+  }
+
+  .account-exists {
+    font-size: .8rem;
+    text-align: center;
+
+    a {
+      padding-left: .2rem;
+      color: inherit;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  }
+}

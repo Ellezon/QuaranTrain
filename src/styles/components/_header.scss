@@ -2,6 +2,16 @@
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 3.5vw;
+  height: 2rem;
   background: #fafafa;
+  box-shadow: 1px 4px 8px #635f5f;
+  padding: 0 1rem;
+  .logo {
+    display: flex;
+  }
+
+  a {
+    font-size: 1rem;
+    line-height: 2rem;
+  }
 }

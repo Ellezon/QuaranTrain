@@ -1,6 +1,7 @@
 import React from 'react';
+import { Field, reduxForm } from 'redux-form'
 
-class Register extends React.Component {
+class RegisterForm extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -9,19 +10,47 @@ class Register extends React.Component {
     }
 
     render() {
+        const { handleSubmit } = this.props;
         return (
-            <div className='login-page'>
-                <article>
-                    <h1>Stay in and stay in shape</h1>
-                    <q>If you think lifting is dangerous, try being weak</q>
-                </article>
-                <div className="login-page-actions">
-                    {authButton}
+            <div className='registration-page'>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label htmlFor="firstName">First Name</label>
+                        <Field name="firstName" component="input" type="text" />
+                    </div>
+                    <div>
+                        <label htmlFor="lastName">Last Name</label>
+                        <Field name="lastName" component="input" type="text" />
+                    </div>
+                    <div>
+                        <label htmlFor="email">Email</label>
+                        <Field name="email" component="input" type="email" />
+                    </div>
+                    <div>
+                        <label htmlFor="password">Password</label>
+                        <Field name="password" component="input" type="password" />
+                    </div>
+                    <div>
+                        <label htmlFor="password">Confirm password</label>
+                        <Field name="passwordConfirmation" component="input" type="password" />
+                    </div>
+                    <button type="submit">Sign Up</button>
+                </form>
+
+                <div className="account-exists">
+                    <p>
+                        Already have an account?
+                        <a href="#">Sign in</a>
+                    </p>
                 </div>
             </div>
         )
     }
 }
 
+RegisterForm = reduxForm({
+    form: 'registerForm',
+})(RegisterForm);
 
-export default Register;
+
+export default RegisterForm;

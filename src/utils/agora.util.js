@@ -105,7 +105,7 @@ class AgoraStream {
     }
 
     createListeners() {
-        this.client.on("stream-added", (evt) =>{
+        this.client.on("stream-added", (evt) => {
             let stream = evt.stream;
             let id = stream.getId();
             consoleUtil('agora', "New stream added: " + id);
