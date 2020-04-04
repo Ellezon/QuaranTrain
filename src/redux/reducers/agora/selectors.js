@@ -1,1 +1,1 @@
-export const getAgoraStreamsList = (state) => state.agora.streamList;
+export const getAgoraCurrentStream = (state) => state.agora.currentStream;

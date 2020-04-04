@@ -8,3 +8,8 @@ export const RESOLUTION_ARR = {
 };
 
 export const SHARE_ID = 1;
+
+export const clientRoles = {
+    'host': 'host',
+    'audience': 'audience',
+};
