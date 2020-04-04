@@ -207,16 +207,20 @@ class AgoraStream {
     leaveChannel() {
         const currentStream = getAgoraCurrentStream(store.getState());
 
-        currentStream.stream.getTracks().forEach(function(track) {
-            track.stop();
-        });
-        this.client.leave(function() {
-            consoleUtil('agora', 'client leaves channel');
-            store.dispatch(agoraActions.agoraExitStream());
-        }, function(err) {
-            consoleUtil('agora', 'client leave failed');
-            //error handling
-        });
+        if (currentStream) {
+            currentStream.stream.getTracks().forEach(function(track) {
+                track.stop();
+            });
+        }
+        if (this.client) {
+            this.client.leave(function() {
+                consoleUtil('agora', 'client leaves channel');
+                store.dispatch(agoraActions.agoraExitStream());
+            }, function(err) {
+                consoleUtil('agora', 'client leave failed');
+                //error handling
+            });
+        }
     }
 
 }
