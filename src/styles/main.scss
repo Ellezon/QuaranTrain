@@ -1,6 +1,13 @@
-@import 'variables.scss';
+@import './_reset.scss';
+@import './variables.scss';
+@import './components/_login.scss';
+@import './components/_header.scss';
 @import 'footer.scss';
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin-ext');
+
+*, html {
+  box-sizing: border-box;
+}
 
 html, body {
   max-width: 100%;
@@ -9,3 +16,4 @@ html, body {
   margin: 0;
   font-family: 'Roboto';
 }
+

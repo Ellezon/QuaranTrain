@@ -1,0 +1,36 @@
+.login-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fafafa;
+  padding: 25vh 5vw;
+
+  article {
+    margin-bottom: 10vw;
+
+    h1 {
+      font-size: 6rem;
+      margin-bottom: 4vw;
+    }
+
+    q {
+      font-size: 5rem;
+    }
+
+  }
+
+  .login-page-actions {
+    padding: 0 5vw;
+
+    button {
+      background: none;
+      box-shadow: 1px 1px 2px;
+      width: 100%;
+      padding: 4vw 1vw;
+      text-transform: capitalize;
+      margin: 4vw 0;
+      font-size: 5.5rem;
+      border: 1px solid $black;
+    }
+  }
+}
