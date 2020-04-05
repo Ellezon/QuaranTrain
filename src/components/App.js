@@ -100,8 +100,6 @@ class App extends React.Component {
 
         return (
             <div id="app">
-                <div className={splashScreenClasses} />
-
                 {this.renderPage()}
             </div>
         )
