@@ -30,7 +30,8 @@ class VideoDashboard extends React.Component {
   }
 
   goToStream = (vidTitle) => {
-    store.dispatch(streamActions.agoraSetStreamID(vidTitle));
+    const { uid } = this.props;
+    store.dispatch(streamActions.agoraSetStreamID({streamID: vidTitle, userID: uid}));
     store.dispatch(streamActions.agoraSetIsInsideStream(true));
   }
 

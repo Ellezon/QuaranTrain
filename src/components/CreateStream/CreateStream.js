@@ -6,8 +6,6 @@ import store from "@/redux/createStore";
 import streamActions from "@/redux/reducers/agora/actions";
 import * as dbFns from '@/utils/database.util.js';
 
-import { getUserId } from '@/redux/reducers/user/selectors';
-
 class CreateStream extends React.Component {
 
     handleSubmit = async (event) => {
@@ -25,7 +23,7 @@ class CreateStream extends React.Component {
             this.setState({ errorMsg: err.message });
             setTimeout(() => this.setState({ errorMsg: false }), 2000);
         } else {
-            store.dispatch(streamActions.agoraSetStreamID(streamName));
+            store.dispatch(streamActions.agoraSetStreamID({streamID: streamName, userID: uid}));
             store.dispatch(streamActions.agoraSetIsInsideStream(true));
         }
     };
@@ -67,7 +65,5 @@ CreateStream = connect(state => {
         category,
     }
 })(CreateStream);
-
-
 
 export default CreateStream;
