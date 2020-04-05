@@ -97,11 +97,6 @@ class App extends React.Component {
     }
 
     render() {
-        const { isLoggedIn, hasAuthEnded } = this.props;
-
-        const splashScreenClasses = classNames('splash-screen', {
-            'is-visible': !hasAuthEnded,
-        });
 
         return (
             <div id="app">

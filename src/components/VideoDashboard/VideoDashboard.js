@@ -6,6 +6,8 @@ import streamActions from "@/redux/reducers/agora/actions";
 
 import * as dbFns from '@/utils/database.util.js';
 
+import SplashScreen from '@/components/SplashScreen/SplashScreen';
+
 class VideoDashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -39,7 +41,7 @@ class VideoDashboard extends React.Component {
     const { videos, loading } = this.state;
     return (
       <div className='content video-dashboard'>
-        {loading && <div> LOADING </div>}
+        {loading &&  <SplashScreen />}
         {!loading && videos.map((vid) => {
           const category = vid.data.category? vid.data.category.toLowerCase(): '';
           const videoContainerClasses = classNames('video-container', { 'is-live': vid.isPalying }, category);

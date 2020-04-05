@@ -10,6 +10,7 @@
 @import './components/_header.scss';
 @import './components/_register.scss';
 @import './components/_createStream.scss';
+@import './components/splashScreen';
 @import './components/_footer.scss';
 
 *,
@@ -55,8 +56,8 @@ body {
   color: white;
   transition-property: opacity;
   transition-duration: .5s;
-
   opacity: 0;
+
   &.is-visible{
     opacity: 1;
   }
