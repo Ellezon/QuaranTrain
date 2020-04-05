@@ -3,15 +3,25 @@
   top: 0;
   width: 100%;
   height: 7%;
-  background: #fafafa;
-  box-shadow: 1px 4px 8px #635f5f;
-  padding: 10px 16px 5px;
+  padding: 10px 16px;
   display: flex;
   align-content: center;
 
   &.transparent {
     background: transparent;
     box-shadow: none;
+  }
+
+  &.inner {
+    background: #fafafa;
+    box-shadow: 1px 4px 8px #635f5f;
+
+    .page-header-logo {
+      margin-right: 5px;
+    }
+    .page-header-name {
+      color: #333;
+    }
   }
 
   &-logo {

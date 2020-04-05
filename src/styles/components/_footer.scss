@@ -16,9 +16,11 @@
         align-items: center;
 
         .menu-item {
+          position: relative;
           width: 25px;
           height: 25px;
           opacity: .5;
+          top: -2px;
 
           &.home {
             background: transparent url('../images/home.svg') no-repeat center center / contain;
@@ -39,8 +41,9 @@
           &.profile {
             background: transparent url('../images/profile.svg') no-repeat center center / contain;
           }
-          &.settings {
-            background: transparent url('../images/settings.svg') no-repeat center center / contain;
+          &.exit {
+            background: transparent url('../images/exit.svg') no-repeat center center / contain;
+            opacity: 1;
           }
         }
 

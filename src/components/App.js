@@ -64,7 +64,7 @@ class App extends React.Component {
             } else {
                 response = (
                     <>
-                        <Header />
+                        <Header type='inner' />
                         <VideoDashboard/>
                         <CreateStream isVisible={isCreateStreamOpen} uid={userId} />
                         <Footer onCameraClick={() => this.setState({ isCreateStreamOpen: !isCreateStreamOpen }) } />
