@@ -5,19 +5,19 @@ import localTypes from './types';
 const initialState = {
     hasAuthEnded: false,
     isLoggedIn:   false,
-    name:         '',
-    surname:      '',
+    displayName:  '',
     userEmail:    undefined,
     avatar:       '',
+    userId:       '',
 };
 
-const setUser = (state, { payload: { name, surname, email, photoUrl } }) => update( state, {
+const setUser = (state, { payload: {  displayName, email, photoURL, uid } }) => update( state, {
     hasAuthEnded: { $set: true },
     isLoggedIn:   { $set: true },
-    name:         { $set: name },
-    surname:      { $set: surname },
+    displayName:  { $set: displayName },
     userEmail:    { $set: email },
-    avatar:       { $set: photoUrl },
+    avatar:       { $set: photoURL },
+    userId:       { $set: uid},
 } );
 
 

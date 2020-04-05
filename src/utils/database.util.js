@@ -60,13 +60,14 @@ export const getTrainer = userId => {
   });
 }
 
-export const addVideo = (userId, videoTitle) => {
+export const addVideo = (userId, videoTitle, category) => {
   // Add a new document with a generated id.
   return new Promise(function (resolve, error) {
     videoCollRef.add({
       userId,
       videoTitle,
-      isPlaying: false
+      isPlaying: false,
+      category,
     }).then(ref => {
       console.log('Video added with ID: ', ref.id);
       resolve(ref.id);

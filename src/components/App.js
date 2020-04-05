@@ -15,7 +15,8 @@ import store from "@/redux/createStore";
 import userAction from "@/redux/reducers/user/actions";
 import { getAgoraCurrentStream, getAgoraIsStreaming } from "@/redux/reducers/agora/selectors";
 import { connect } from "react-redux";
-import { getUserHasAuthEnded, getUserIsLoggedIn } from "@/redux/reducers/user/selectors";
+import { getUserHasAuthEnded, getUserIsLoggedIn, getUserId } from "@/redux/reducers/user/selectors";
+import CreateStream from "@/components/CreateStream/CreateStream";
 
 class App extends React.Component {
 
@@ -23,6 +24,7 @@ class App extends React.Component {
         authentication.getRedirectResult().then(async (result) => {
             if (result.user) {
                 consoleUtil('auth', `User logged in from Redirection ${result}`);
+                console.log('result', result);
                 const user = await dbFns.getStudent(result.user.uid);
                 if (!user) {
                     const profileInfo = result.additionalUserInfo.profile;
@@ -38,7 +40,7 @@ class App extends React.Component {
             console.log('lala', user);
             if (user !== null) {
                 const dbUser = await dbFns.getStudent(user.uid);
-                store.dispatch(userAction.loginUser(dbUser));
+                store.dispatch(userAction.loginUser(user));
                 consoleUtil('auth', `User authenticated => ${JSON.stringify(dbUser)}`);
             } else {
                 store.dispatch(userAction.finishAuth());
@@ -47,7 +49,7 @@ class App extends React.Component {
     }
 
     renderPage() {
-        const { isLoggedIn, hasAuthEnded } = this.props;
+        const { isLoggedIn, hasAuthEnded, userId } = this.props;
         let response = null;
 
         if (hasAuthEnded && isLoggedIn) {
@@ -55,6 +57,7 @@ class App extends React.Component {
                 <>
                     <Header />
                     <div className='content'>
+                        <CreateStream uid={userId} />
                     </div>
                     <Footer />
                 </>
@@ -91,6 +94,7 @@ class App extends React.Component {
 const mapStateToProps = (state) => ({
     isLoggedIn:   getUserIsLoggedIn(state),
     hasAuthEnded: getUserHasAuthEnded(state),
+    userId:       getUserId(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
