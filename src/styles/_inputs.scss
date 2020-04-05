@@ -1,0 +1,24 @@
+.input {
+  display: inline-block;
+  width: calc(100% - 50px);
+  height: 40px;
+  border: none;
+  margin: 0;
+  vertical-align: top;
+  padding: 5px 5px 5px 15px;
+  color: white;
+  box-sizing: border-box;
+  border-radius: 1000px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  outline: none!important;
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus {
+    border: 1px solid green;
+    -webkit-text-fill-color: green;
+    -webkit-box-shadow: 0 0 0px 1000px #000 inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}

@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:500&display=swap');
 @import './_reset.scss';
 @import './_variables.scss';
+@import './_buttons.scss';
+@import './_inputs.scss';
 @import './components/app.scss';
 @import './components/_startPage.scss';
 @import './components/_header.scss';
