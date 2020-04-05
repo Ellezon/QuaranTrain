@@ -17,12 +17,16 @@ class LoginForm extends React.Component {
         // Prevent reload
         event.preventDefault();
         const { email, password } = this.props;
-        const err = await authFns.emailSignIn(email, password);
+        let err = null;
 
+        if (!(password && email)) {
+            err = { message: 'Please fill in all fields' };
+        } else {
+            err = await authFns.emailSignIn(email, password);
+        }
         if (err) {
-            if(err.message === 'There is no user record corresponding to this identifier. The user may have been deleted.')
-            {
-                err.message = 'Incorrect email entered';
+            if (err.message === 'There is no user record corresponding to this identifier. The user may have been deleted.') {
+                err.message = 'User does not exist';
             }
             this.setState({ errorMsg: err.message });
             setTimeout(() => this.setState({ errorMsg: false }), 2000);
@@ -33,7 +37,7 @@ class LoginForm extends React.Component {
         const { errorMsg } = this.state;
         const errorClasses = classNames('error', { 'is-visible': errorMsg });
         return (
-            <div className='registration-page'>
+            <div className='login-page'>
                 <form onSubmit={(event) => this.handleSubmit(event)}>
                     <Field placeholder='E-mail' name="email" component="input" type="email" className='input' />
                     <Field placeholder='Password' name="password" component="input" type="password" className='input' />
