@@ -19,6 +19,9 @@ import { getUserHasAuthEnded, getUserIsLoggedIn, getUserId } from "@/redux/reduc
 import CreateStream from "@/components/CreateStream/CreateStream";
 
 class App extends React.Component {
+    state = {
+        isCreateStreamOpen: false,
+    };
 
     componentDidMount() {
         authentication.getRedirectResult().then(async (result) => {
@@ -49,6 +52,7 @@ class App extends React.Component {
     }
 
     renderPage() {
+        const { isCreateStreamOpen } = this.state;
         const { isLoggedIn, hasAuthEnded, userId } = this.props;
         let response = null;
 
@@ -56,11 +60,9 @@ class App extends React.Component {
             response = (
                 <>
                     <Header />
-                    {/* <div className='content'>
-                        <CreateStream uid={userId} />
-                    </div> */}
-                        <VideoDashboard/>
-                    <Footer />
+                    <VideoDashboard/>
+                    <CreateStream isVisible={isCreateStreamOpen} uid={userId} />
+                    <Footer onCameraClick={() => this.setState({ isCreateStreamOpen: !isCreateStreamOpen }) } />
                 </>
             );
         } else {

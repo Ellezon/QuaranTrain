@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { Field, reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
 import * as dbFns from '@/utils/database.util.js';
@@ -24,18 +25,19 @@ class CreateStream extends React.Component {
     };
 
     render() {
+        const { isVisible } = this.props;
+
+        const createStreamClass = classNames('create-stream-page', {
+            'is-visible': isVisible,
+        });
+
         return (
-            <div className='create-stream-page'>
+            <div className={createStreamClass}>
                 <form onSubmit={(event) => this.handleSubmit(event)}>
-                    <div>
-                        <label htmlFor="streamName">Stream name</label>
-                        <Field name="streamName" component="input" type="text" />
-                    </div>
-                    <div>
-                        <label htmlFor="category">Category</label>
-                        <Field name="category" placeholder='E.g. Sports' component="input" type='text' />
-                    </div>
-                    <button type="submit" >Create Stream</button>
+                    <h1>Create Stream</h1>
+                    <Field className='input' placeholder='Stream Name' name="streamName" component="input" type="text" />
+                    <Field className='input' placeholder='Category' name="category" placeholder='E.g. Sports' component="input" type='text' />
+                    <button className='button is-primary' type="submit" >Create Stream</button>
                 </form>
             </div>
         )
