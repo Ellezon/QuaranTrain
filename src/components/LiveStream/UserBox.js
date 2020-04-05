@@ -12,7 +12,7 @@ class UserBox extends React.Component {
         return (
             <div className='user-box'>
                 <div className='avatar' style={{ background: `url(${userImage})` }} />
-                <div className='content'>
+                <div className='user-box-content'>
                     <div className='username'>
                         { userName }
                     </div>
