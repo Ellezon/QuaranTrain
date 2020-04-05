@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
-import classNames from 'classNames';
+import classNames from 'classnames';
 
 import * as authFns from "@/utils/authentication.util";
 

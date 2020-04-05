@@ -2,6 +2,7 @@ import { db } from '@/utils/firebase.util.js'
 
 const studentsCollRef = db.collection('students');
 const trainersCollRef = db.collection('trainers');
+
 export const addStudent = (userId, name, surname, photoUrl, email) => {
   const docRef = studentsCollRef.doc(userId);
   const setStudent = docRef.set({
@@ -21,7 +22,7 @@ export function getStudent(userId) {
   return new Promise(function (resolve, error) {
     studentsCollRef.doc(userId).get()
       .then(doc => {
-        resolve(doc.data());
+        resolve(doc.id);
       })
       .catch(err => {
         console.log('Error getting document', err);
@@ -30,10 +31,11 @@ export function getStudent(userId) {
   });
 }
 
-export const addTrainer = (userId, name, photoUrl, email) => {
+export const addTrainer = (userId, name, surname, photoUrl, email) => {
   const docRef = trainersCollRef.doc(userId);
-  const setStudent = docRef.set({
+  const setTrainer = docRef.set({
     name,
+    surname,
     photoUrl,
     email
   }).then(ref => {
@@ -41,7 +43,7 @@ export const addTrainer = (userId, name, photoUrl, email) => {
   }).catch((err) => {
     console.log('Error adding trainer', err);
   });
-  return Promise.all([setStudent]);
+  return Promise.all([setTrainer]);
 }
 
 export const getTrainer = userId => {
