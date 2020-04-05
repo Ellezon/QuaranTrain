@@ -33,6 +33,7 @@ export const emailSignIn = (email, password) => {
 };
 
 export const googleSignIn = () => {
+  window.sessionStorage.setItem('googleLoginPending', 1);
   authentication.signInWithRedirect(googleProvider);
 }
 

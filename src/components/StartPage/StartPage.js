@@ -24,47 +24,46 @@ class StartPage extends React.Component {
 
   renderSignUp = () => {
     return (
-        <>
-          <article>
-            <h1>Sign Up</h1>
-          </article>
+      <>
+        <article>
+          <h1>Sign Up</h1>
+        </article>
 
-          <RegisterForm goBack={() => this.showSignUp(false)} />
-        </>
+        <RegisterForm goBack={() => this.showSignUp(false)} />
+      </>
     );
   };
 
   renderLogin = () => {
-
     return (
-        <>
-          <article>
-            <h1>Stay in</h1>
-            <h1>Stay in shape</h1>
-          </article>
+      <>
+        <article>
+          <h1>Stay in</h1>
+          <h1>Stay in shape</h1>
+        </article>
 
-          <LoginForm/>
+        <LoginForm />
 
-          <div className="actions">
-            <p>or connect with</p>
+        <div className="actions">
+          <p>or connect with</p>
 
-            <div className='actions-buttons'>
-              <button className='button facebook' onClick={() => authFns.googleSignIn()}>
-                <img src={facebookIcon} />
-                <span>Facebook</span>
-              </button>
-              <button className='button google' onClick={() => authFns.googleSignIn()}>
-                <img src={GoogleIcon} />
-                <span>Google</span>
-              </button>
-            </div>
+          <div className='actions-buttons'>
+            <button className='button facebook' onClick={() => authFns.googleSignIn()}>
+              <img src={facebookIcon} />
+              <span>Facebook</span>
+            </button>
+            <button className='button google' onClick={() => authFns.googleSignIn()}>
+              <img src={GoogleIcon} />
+              <span>Google</span>
+            </button>
           </div>
+        </div>
 
 
-          <div className="sign-up-link">
-            <p>Dont have an account? <span onClick={() => { this.showSignUp(true) }}>Sign up!</span></p>
-          </div>
-        </>
+        <div className="sign-up-link">
+          <p>Dont have an account? <span onClick={() => { this.showSignUp(true) }}>Sign up!</span></p>
+        </div>
+      </>
     );
   };
 
@@ -72,12 +71,12 @@ class StartPage extends React.Component {
     const { isSignUp } = this.state;
 
     return (
-        <div className='start-page'>
+      <div className='start-page'>
 
-          {!isSignUp && this.renderLogin()}
-          {isSignUp && this.renderSignUp()}
+        {!isSignUp && this.renderLogin()}
+        {isSignUp && this.renderSignUp()}
 
-        </div>
+      </div>
     );
   }
 }

@@ -22,9 +22,15 @@ import { getIsInsideStream, getStreamID } from "@/redux/reducers/agora/selectors
 class App extends React.Component {
     state = {
         isCreateStreamOpen: false,
+        isLoading: false
     };
 
     componentDidMount() {
+        if (window.sessionStorage.getItem('googleLoginPending')) {
+            this.setState({
+                isLoading: true
+            })
+        }
         authentication.getRedirectResult().then(async (result) => {
             if (result.user) {
                 consoleUtil('auth', `User logged in from Redirection ${result}`);
@@ -34,6 +40,13 @@ class App extends React.Component {
                     const profileInfo = result.additionalUserInfo.profile;
                     dbFns.addStudent(result.user.uid, profileInfo.given_name, profileInfo.family_name, profileInfo.picture, profileInfo.email);
                 }
+                this.setState({
+                    isLoading: false
+                })
+                if (window.sessionStorage.getItem('googleLoginPending')) {
+                    window.sessionStorage.removeItem('googleLoginPending');
+                }
+
                 return result;
             }
         }).catch(function (error) {
@@ -53,7 +66,7 @@ class App extends React.Component {
     }
 
     renderPage() {
-        const { isCreateStreamOpen } = this.state;
+        const { isCreateStreamOpen, isLoading } = this.state;
         const { isLoggedIn, hasAuthEnded, userId, isInsideStream } = this.props;
         let response = null;
 
@@ -64,9 +77,9 @@ class App extends React.Component {
                 response = (
                     <>
                         <Header type='inner' />
-                        <VideoDashboard uid={userId}/>
+                        <VideoDashboard uid={userId} />
                         <CreateStream isVisible={isCreateStreamOpen} uid={userId} />
-                        <Footer onCameraClick={() => this.setState({ isCreateStreamOpen: !isCreateStreamOpen }) } />
+                        <Footer onCameraClick={() => this.setState({ isCreateStreamOpen: !isCreateStreamOpen })} />
                     </>
                 );
             }
@@ -74,7 +87,8 @@ class App extends React.Component {
             response = (
                 <>
                     <Header type='transparent' />
-                    <StartPage />
+                    {!isLoading && <StartPage />}
+                    {isLoading && 'Loading'}
                 </>
             );
         }
@@ -91,20 +105,20 @@ class App extends React.Component {
 
         return (
             <div id="app">
-                <div className={splashScreenClasses}/>
+                <div className={splashScreenClasses} />
 
-                { this.renderPage() }
+                {this.renderPage()}
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => ({
-    isLoggedIn:     getUserIsLoggedIn(state),
-    hasAuthEnded:   getUserHasAuthEnded(state),
-    userId:         getUserId(state),
+    isLoggedIn: getUserIsLoggedIn(state),
+    hasAuthEnded: getUserHasAuthEnded(state),
+    userId: getUserId(state),
     isInsideStream: getIsInsideStream(state),
-    streamID:       getStreamID(state)
+    streamID: getStreamID(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
