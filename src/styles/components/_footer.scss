@@ -5,18 +5,47 @@
   height: 7%;
 
   .footer-wrapper {
-    position: fixed;
     width: 100%;
     position: relative;
 
     .footer-menu {
       .menu-container {
         display: flex;
+        height: 48px;
         justify-content: space-evenly;
         align-items: center;
 
+        .menu-item {
+          width: 25px;
+          height: 25px;
+          opacity: .5;
+
+          &.home {
+            background: transparent url('../images/home.svg') no-repeat center center / contain;
+            opacity: 1;
+          }
+          &.favourites {
+            background: transparent url('../images/favourites.svg') no-repeat center center / contain;
+          }
+          &.camera {
+            position: relative;
+            top: -9px;
+            width: 35px;
+            height: 35px;
+            margin: 0 13px;
+            background: transparent url('../images/camera.svg') no-repeat center center / contain;
+            opacity: 1;
+          }
+          &.profile {
+            background: transparent url('../images/profile.svg') no-repeat center center / contain;
+          }
+          &.settings {
+            background: transparent url('../images/settings.svg') no-repeat center center / contain;
+          }
+        }
+
         .footer-icon {
-          fill: $white;
+          fill: black;
           height: 25px;
 
           &.record-icon {
@@ -32,14 +61,14 @@
       height: 100%;
       width: 140%;
       margin-left: -20%;
-      background: $purple;
+      background: white;
       z-index: -1;
-      -webkit-filter: url(#goo);
+      -webkit-filter: url(#goo) drop-shadow(0 0 .5rem rgba(0, 0, 0, 0.15));
 
       .blob {
         left: 50%;
         top: 7.21875px;
-        background: $purple;
+        background: white;
         position: absolute;
         width: 50px;
         height: 50px;
