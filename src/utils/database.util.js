@@ -2,6 +2,7 @@ import { db } from '@/utils/firebase.util.js'
 
 const studentsCollRef = db.collection('students');
 const trainersCollRef = db.collection('trainers');
+const videoCollRef = db.collection('videos');
 
 export const addStudent = (userId, name, surname, photoUrl, email) => {
   const docRef = studentsCollRef.doc(userId);
@@ -25,7 +26,7 @@ export function getStudent(userId) {
         resolve(doc.id);
       })
       .catch(err => {
-        console.log('Error getting document', err);
+        console.log('Error getting student', err);
         error(err);
       });
   });
@@ -47,5 +48,44 @@ export const addTrainer = (userId, name, surname, photoUrl, email) => {
 }
 
 export const getTrainer = userId => {
-  return trainersCollRef.doc(userId);
+  return new Promise(function (resolve, error) {
+    trainersCollRef.doc(userId).get()
+      .then(doc => {
+        resolve(doc.id);
+      })
+      .catch(err => {
+        console.log('Error getting trainer', err);
+        error(err);
+      });
+  });
+}
+
+export const addVideo = (userId, videoTitle, isPlaying) => {
+  // Add a new document with a generated id.
+  return new Promise(function (resolve, error) {
+    videoCollRef.add({
+      userId,
+      videoTitle,
+      isPlaying
+    }).then(ref => {
+      console.log('Video added with ID: ', ref.id);
+      resolve(ref.id);
+    }).catch((err) => {
+      console.log('Error adding video', err);
+      error(err);
+    });
+  });
+}
+
+export function getVideo(videoID) {
+  return new Promise(function (resolve, error) {
+    videoCollRef.doc(videoID).get()
+      .then(doc => {
+        resolve(doc.data());
+      })
+      .catch(err => {
+        console.log('Error getting video', err);
+        error(err);
+      });
+  });
 }
