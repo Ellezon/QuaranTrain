@@ -9,10 +9,11 @@ import Header from '@/components/Header/Header';
 import VideoDashboard from '@/components/VideoDashboard/VideoDashboard'
 import CreateStream from "@/components/CreateStream/CreateStream";
 import LiveStream from "@/components/LiveStream/LiveStream";
+import StartPage from '@/components/StartPage/StartPage';
+import SplashScreen from '@/components/SplashScreen/SplashScreen';
 
 import { authentication } from '@/utils/firebase.util.js';
 import * as dbFns from '@/utils/database.util.js';
-import StartPage from './StartPage/StartPage';
 import store from "@/redux/createStore";
 import userAction from "@/redux/reducers/user/actions";
 import { connect } from "react-redux";
@@ -22,7 +23,7 @@ import { getIsInsideStream, getStreamID } from "@/redux/reducers/agora/selectors
 class App extends React.Component {
     state = {
         isCreateStreamOpen: false,
-        isLoading: false
+        isLoading: true
     };
 
     componentDidMount() {
@@ -56,9 +57,12 @@ class App extends React.Component {
                 }
                 this.setState({
                     isLoading: false
-                })
+                });
                 consoleUtil('auth', `User authenticated => ${JSON.stringify(dbUser)}`);
             } else {
+                this.setState({
+                    isLoading: false
+                });
                 store.dispatch(userAction.finishAuth());
             }
         });
@@ -96,9 +100,11 @@ class App extends React.Component {
     }
 
     render() {
+        const { isLoading } = this.state;
 
         return (
             <div id="app">
+                <SplashScreen isHidden={!isLoading} />
                 {this.renderPage()}
             </div>
         )

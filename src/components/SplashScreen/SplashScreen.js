@@ -1,10 +1,16 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import Logo from '@/images/logo.png'
 
-const SplashScreen = () => {
+const SplashScreen = ({ isHidden }) => {
+
+    const splashScreenClasses = classNames('splash-screen', {
+        'is-hidden': isHidden,
+    });
+
     return (
-        <div className='splash-screen'>
+        <div className={splashScreenClasses}>
             <img src={Logo} alt="" />
             <h3>QuaranTrain</h3>
         </div>

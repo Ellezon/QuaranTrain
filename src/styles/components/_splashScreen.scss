@@ -8,14 +8,23 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding-bottom: 5rem;
+  z-index: 99;
+  opacity: 1;
+  pointer-events: all;
+  transition: opacity .2s ease;
+
+  &.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
 
   h3 {
-    font-size: 3rem;
+    font-size: 1.2rem;
+    font-family: 'Josefin Sans', sans-serif;
   }
   img {
-    margin-bottom: 2rem;
-    width: 50%;
+    margin-bottom: 1rem;
+    width: 15%;
     transition: all 2s;
     animation: logoAnimation 1s ease-in-out infinite alternate;
   }
@@ -28,6 +37,6 @@
   }
 
   100% {
-    transform: scale(1.15);
+    transform: scale(1.05);
   }
 }
