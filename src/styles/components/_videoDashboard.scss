@@ -1,0 +1,42 @@
+.video-dashboard {
+  &.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 0;
+    flex-wrap: wrap;
+    overflow: scroll;
+    align-content: flex-start;
+  }
+
+  .video-container {
+    flex: 1 1 50%;
+    height: 25%;
+    background: url('../images/defaultthumbnail.jpg') center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+    &:nth-child(1),
+    &:nth-child(2) {
+      height: 45%
+    }
+
+    &.sports {
+      background: url('../images/sportsthumbnail.jpg') center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    .title{
+      color: white;
+      text-transform: uppercase;
+      text-transform: uppercase;
+      background: rgba(0, 0, 0, .6);
+      padding: 10%;
+      border-radius: 36px;
+    }
+  }
+}

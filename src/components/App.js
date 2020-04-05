@@ -4,9 +4,9 @@ import '../styles/main.scss';
 
 import consoleUtil from '@/utils/console.util';
 
-import Footer from '@/components/footer.js';
-import Header from './Header/Header';
-
+import Footer from '@/components/Footer/Footer.js';
+import Header from '@/components/Header/Header';
+import VideoDashboard from '@/components/VideoDashboard/VideoDashboard'
 
 import { authentication } from '@/utils/firebase.util.js';
 import * as dbFns from '@/utils/database.util.js';
@@ -56,9 +56,10 @@ class App extends React.Component {
             response = (
                 <>
                     <Header />
-                    <div className='content'>
+                    {/* <div className='content'>
                         <CreateStream uid={userId} />
-                    </div>
+                    </div> */}
+                        <VideoDashboard/>
                     <Footer />
                 </>
             );

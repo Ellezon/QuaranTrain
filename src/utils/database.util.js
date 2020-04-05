@@ -95,15 +95,37 @@ export const updateVideoState = (videoID, isPlaying) => {
   // Add a new document with a generated id.
   return new Promise(function (resolve, error) {
     videoCollRef.doc(videoID)
-    .update({
-      isPlaying
-    })
-    .then(() => {
-      console.log('Video updated');
-      resolve();
-    }).catch((err) => {
-      console.log('Error updating video', err);
-      error(err);
-    });
+      .update({
+        isPlaying
+      })
+      .then(() => {
+        console.log('Video updated');
+        resolve();
+      }).catch((err) => {
+        console.log('Error updating video', err);
+        error(err);
+      });
+  });
+}
+
+export function getVideos(number) {
+  return new Promise(function (resolve, error) {
+    videoCollRef.limit(number).get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('No matching videos');
+          return;
+        }
+        let videos = [];
+        snapshot.forEach(doc => {
+          videos.push({id: doc.id, data: doc.data()});
+        });
+        resolve(videos);
+      })
+      .catch(err => {
+        console.log('Error getting videos', err);
+        error(err);
+      });
+
   });
 }
