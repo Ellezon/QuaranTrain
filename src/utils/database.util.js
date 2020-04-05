@@ -60,13 +60,13 @@ export const getTrainer = userId => {
   });
 }
 
-export const addVideo = (userId, videoTitle, isPlaying) => {
+export const addVideo = (userId, videoTitle) => {
   // Add a new document with a generated id.
   return new Promise(function (resolve, error) {
     videoCollRef.add({
       userId,
       videoTitle,
-      isPlaying
+      isPlaying: false
     }).then(ref => {
       console.log('Video added with ID: ', ref.id);
       resolve(ref.id);
@@ -87,5 +87,22 @@ export function getVideo(videoID) {
         console.log('Error getting video', err);
         error(err);
       });
+  });
+}
+
+export const updateVideoState = (videoID, isPlaying) => {
+  // Add a new document with a generated id.
+  return new Promise(function (resolve, error) {
+    videoCollRef.doc(videoID)
+    .update({
+      isPlaying
+    })
+    .then(() => {
+      console.log('Video updated');
+      resolve();
+    }).catch((err) => {
+      console.log('Error updating video', err);
+      error(err);
+    });
   });
 }
