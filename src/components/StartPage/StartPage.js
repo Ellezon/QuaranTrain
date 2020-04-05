@@ -3,7 +3,8 @@ import React from 'react';
 import LoginForm from '@/components/Login/Login';
 import RegisterForm from "@/components/Register/Register";
 
-import GoogleIcon from '@/images/googleIcon.png'
+import GoogleIcon from '@/images/googleIcon.png';
+import facebookIcon from '@/images/facebookIcon.png';
 
 import * as authFns from '@/utils/authentication.util.js';
 
@@ -12,53 +13,73 @@ class StartPage extends React.Component {
     super(props);
     this.state = {
       isSignUp: false,
-      isLogin: false,
     };
   };
 
-  renderSignUp = () => {
+  showSignUp = (state) => {
     this.setState({
-      isSignUp: true,
+      isSignUp: state,
     });
+  };
+
+  renderSignUp = () => {
+    return (
+        <>
+          <article>
+            <h1>Sign Up</h1>
+          </article>
+
+          <RegisterForm goBack={() => this.showSignUp(false)} />
+        </>
+    );
   };
 
   renderLogin = () => {
-    this.setState({
-      isLogin: true,
-    });
-  };
 
-  renderIntro = () => {
     return (
-      <div className='start-page'>
-        <article>
-          <h1>Stay in and stay in shape</h1>
-          <q>If you think lifting is dangerous, try being weak</q>
-        </article>
-        <div className="actions">
-          <button onClick={this.renderLogin}>Log In</button>
-          <button onClick={this.renderSignUp}>Sign Up</button>
-          <button className='google-login' onClick={() => authFns.googleSignIn()}>
-            <img src={GoogleIcon} />
-            <span>Log In with Google</span>
-          </button>
-        </div>
-      </div>
-    )
+        <>
+          <article>
+            <h1>Stay in</h1>
+            <h1>Stay in shape</h1>
+          </article>
+
+          <LoginForm/>
+
+          <div className="actions">
+            <p>or connect with</p>
+
+            <div className='actions-buttons'>
+              <button className='button facebook' onClick={() => authFns.googleSignIn()}>
+                <img src={facebookIcon} />
+                <span>Facebook</span>
+              </button>
+              <button className='button google' onClick={() => authFns.googleSignIn()}>
+                <img src={GoogleIcon} />
+                <span>Google</span>
+              </button>
+            </div>
+          </div>
+
+
+          <div className="sign-up-link">
+            <p>Dont have an account? <span onClick={() => { this.showSignUp(true) }}>Sign up!</span></p>
+          </div>
+        </>
+    );
   };
 
   render() {
-    const { isSignUp, isLogin } = this.state;
+    const { isSignUp } = this.state;
+
     return (
-      <>
-        {isSignUp && <RegisterForm />}
-        {isLogin && <LoginForm />}
-        {!isSignUp && !isLogin && this.renderIntro()}
-      </>
-    )
+        <div className='start-page'>
+
+          {!isSignUp && this.renderLogin()}
+          {isSignUp && this.renderSignUp()}
+
+        </div>
+    );
   }
-
-
 }
 export default StartPage;
 

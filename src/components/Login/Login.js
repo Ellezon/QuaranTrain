@@ -18,7 +18,7 @@ class LoginForm extends React.Component {
         event.preventDefault();
         const { email, password } = this.props;
         const err = await authFns.emailSignIn(email, password);
-      
+
         if (err) {
             if(err.message === 'There is no user record corresponding to this identifier. The user may have been deleted.')
             {
@@ -35,20 +35,11 @@ class LoginForm extends React.Component {
         return (
             <div className='registration-page'>
                 <form onSubmit={(event) => this.handleSubmit(event)}>
-                    <div>
-                        <label htmlFor="email">Email</label>
-                        <Field name="email" component="input" type="email" />
-                    </div>
-                    <div>
-                        <label htmlFor="password">Password</label>
-                        <Field name="password" component="input" type="password" />
-                    </div>
+                    <Field placeholder='E-mail' name="email" component="input" type="email" className='input' />
+                    <Field placeholder='Password' name="password" component="input" type="password" className='input' />
 
-                    <button type="submit">Log In</button>
+                    <button className='button is-primary' type="submit">Log In</button>
                 </form>
-                <div className="small-text">
-                    <a href="/">Go back</a>
-                </div>
                 <div className={errorClasses}>
                     {errorMsg}
                 </div>
