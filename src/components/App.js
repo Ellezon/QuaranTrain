@@ -7,16 +7,16 @@ import consoleUtil from '@/utils/console.util';
 import Footer from '@/components/Footer/Footer.js';
 import Header from '@/components/Header/Header';
 import VideoDashboard from '@/components/VideoDashboard/VideoDashboard'
+import CreateStream from "@/components/CreateStream/CreateStream";
+import LiveStream from "@/components/LiveStream/LiveStream";
 
 import { authentication } from '@/utils/firebase.util.js';
 import * as dbFns from '@/utils/database.util.js';
 import StartPage from './StartPage/StartPage';
 import store from "@/redux/createStore";
 import userAction from "@/redux/reducers/user/actions";
-import { getAgoraCurrentStream, getAgoraIsStreaming } from "@/redux/reducers/agora/selectors";
 import { connect } from "react-redux";
 import { getUserHasAuthEnded, getUserIsLoggedIn, getUserId } from "@/redux/reducers/user/selectors";
-import CreateStream from "@/components/CreateStream/CreateStream";
 
 class App extends React.Component {
     state = {
@@ -57,14 +57,20 @@ class App extends React.Component {
         let response = null;
 
         if (hasAuthEnded && isLoggedIn) {
-            response = (
-                <>
-                    <Header />
-                    <VideoDashboard/>
-                    <CreateStream isVisible={isCreateStreamOpen} uid={userId} />
-                    <Footer onCameraClick={() => this.setState({ isCreateStreamOpen: !isCreateStreamOpen }) } />
-                </>
-            );
+            const isInsideStream = false;
+
+            if (isInsideStream) {
+                response = (<LiveStream />);
+            } else {
+                response = (
+                    <>
+                        <Header />
+                        <VideoDashboard/>
+                        <CreateStream isVisible={isCreateStreamOpen} uid={userId} />
+                        <Footer onCameraClick={() => this.setState({ isCreateStreamOpen: !isCreateStreamOpen }) } />
+                    </>
+                );
+            }
         } else {
             response = (
                 <>
