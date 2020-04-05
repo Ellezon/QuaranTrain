@@ -30,7 +30,7 @@ class StartPage extends React.Component {
 
   renderIntro = () => {
     return (
-      <div id='start-page'>
+      <div className='start-page'>
         <article>
           <h1>Stay in and stay in shape</h1>
           <q>If you think lifting is dangerous, try being weak</q>
