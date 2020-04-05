@@ -2,7 +2,10 @@ import React from 'react';
 import classNames from 'classnames';
 import { Field, reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
+import store from "@/redux/createStore";
+import streamActions from "@/redux/reducers/agora/actions";
 import * as dbFns from '@/utils/database.util.js';
+
 import { getUserId } from '@/redux/reducers/user/selectors';
 
 class CreateStream extends React.Component {
@@ -21,6 +24,9 @@ class CreateStream extends React.Component {
         if (err) {
             this.setState({ errorMsg: err.message });
             setTimeout(() => this.setState({ errorMsg: false }), 2000);
+        } else {
+            store.dispatch(streamActions.agoraSetStreamID(streamName));
+            store.dispatch(streamActions.agoraSetIsInsideStream(true));
         }
     };
 
@@ -61,5 +67,7 @@ CreateStream = connect(state => {
         category,
     }
 })(CreateStream);
+
+
 
 export default CreateStream;

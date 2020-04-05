@@ -17,6 +17,7 @@ import store from "@/redux/createStore";
 import userAction from "@/redux/reducers/user/actions";
 import { connect } from "react-redux";
 import { getUserHasAuthEnded, getUserIsLoggedIn, getUserId } from "@/redux/reducers/user/selectors";
+import { getIsInsideStream, getStreamID } from "@/redux/reducers/agora/selectors";
 
 class App extends React.Component {
     state = {
@@ -53,12 +54,10 @@ class App extends React.Component {
 
     renderPage() {
         const { isCreateStreamOpen } = this.state;
-        const { isLoggedIn, hasAuthEnded, userId } = this.props;
+        const { isLoggedIn, hasAuthEnded, userId, isInsideStream } = this.props;
         let response = null;
 
         if (hasAuthEnded && isLoggedIn) {
-            const isInsideStream = false;
-
             if (isInsideStream) {
                 response = (<LiveStream />);
             } else {
@@ -101,9 +100,11 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    isLoggedIn:   getUserIsLoggedIn(state),
-    hasAuthEnded: getUserHasAuthEnded(state),
-    userId:       getUserId(state),
+    isLoggedIn:     getUserIsLoggedIn(state),
+    hasAuthEnded:   getUserHasAuthEnded(state),
+    userId:         getUserId(state),
+    isInsideStream: getIsInsideStream(state),
+    streamID:       getStreamID(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

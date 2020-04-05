@@ -1,6 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import store from "@/redux/createStore";
+import streamActions from "@/redux/reducers/agora/actions";
+
 import * as dbFns from '@/utils/database.util.js';
 
 class VideoDashboard extends React.Component {
@@ -26,6 +29,11 @@ class VideoDashboard extends React.Component {
         );
   }
 
+  goToStream = (vidTitle) => {
+    store.dispatch(streamActions.agoraSetStreamID(vidTitle));
+    store.dispatch(streamActions.agoraSetIsInsideStream(true));
+  }
+
   render() {
     const { videos, loading } = this.state;
     return (
@@ -35,7 +43,7 @@ class VideoDashboard extends React.Component {
           const category = vid.data.category? vid.data.category.toLowerCase(): '';
           const videoContainerClasses = classNames('video-container', { 'is-live': vid.isPalying }, category);
           return (
-            <div key={vid.id} className={videoContainerClasses}>
+            <div onClick={() => this.goToStream(vid.data.videoTitle)} key={vid.id} className={videoContainerClasses}>
               <div className='title'>{vid.data.videoTitle}</div>
             </div>
           );

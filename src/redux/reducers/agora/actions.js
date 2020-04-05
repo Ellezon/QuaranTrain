@@ -23,4 +23,16 @@ export default {
             type: localTypes.AGORA_EXIT_STREAM,
         };
     },
+    agoraSetIsInsideStream(isInsideStream) {
+        return {
+            type: localTypes.AGORA_SET_IS_INSIDE_STREAM,
+            payload: isInsideStream,
+        };
+    },
+    agoraSetStreamID( streamID ) {
+        return {
+            type: localTypes.AGORA_SET_STREAM_ID,
+            payload: streamID,
+        };
+    },
 };

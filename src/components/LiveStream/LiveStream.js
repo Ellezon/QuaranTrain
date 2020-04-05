@@ -2,9 +2,7 @@ import React from 'react';
 import classNames from "classnames";
 import { connect } from "react-redux";
 import AgoraStream from "@/utils/agora.util";
-import store from "@/redux/createStore";
-import settingsActions from "@/redux/reducers/settings/actions";
-import { getAgoraCurrentStream, getAgoraIsStreaming } from "@/redux/reducers/agora/selectors";
+import { getStreamID, getAgoraIsStreaming } from "@/redux/reducers/agora/selectors";
 
 import UserBox from './UserBox';
 import UserList from './UserList';
@@ -58,7 +56,7 @@ class Stream extends React.Component {
                 <div className='container'>
                     <div className='header'>
                         <UserBox />
-                        <UserList />
+                        {/* <UserList /> */}
                         <div className='btn close-stream' onClick={() => this.stopStreaming(false)} />
                     </div>
 
@@ -80,7 +78,7 @@ class Stream extends React.Component {
 
 
 const mapStateToProps = (state) => ({
-    currentStream: getAgoraCurrentStream(state),
+    currentStream: getStreamID(state),
     isStreaming:   getAgoraIsStreaming(state),
 });
 
