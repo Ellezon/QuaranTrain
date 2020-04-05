@@ -207,7 +207,7 @@ class AgoraStream {
     leaveChannel() {
         const currentStream = getAgoraCurrentStream(store.getState());
 
-        if (currentStream) {
+        if (currentStream && currentStream.stream) {
             currentStream.stream.getTracks().forEach(function(track) {
                 track.stop();
             });

@@ -1,18 +1,18 @@
 .video-dashboard {
   &.content {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     padding: 0;
-    flex-wrap: wrap;
     overflow: scroll;
     align-content: flex-start;
   }
 
   .video-container {
-    flex: 1 1 50%;
-    height: 25%;
+    position: relative;
+    width: 100%;
+    height: 40%;
     background: url('../images/defaultthumbnail.jpg') center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -20,23 +20,23 @@
     justify-content: center;
     display: flex;
 
-    &:nth-child(1),
-    &:nth-child(2) {
-      height: 45%
+    &.sports {
+      background: url('../images/sportsthumbnail.jpg') no-repeat center center / cover;
     }
 
-    &.sports {
-      background: url('../images/sportsthumbnail.jpg') center;
-      background-size: cover;
-      background-repeat: no-repeat;
+    &.health {
+      background: url('../images/washy-washy.jpg') no-repeat center center / cover;
     }
+
     .title{
+      position: absolute;
+      bottom: 0;
+      width: 100%;
       color: white;
       text-transform: uppercase;
       text-transform: uppercase;
-      background: rgba(0, 0, 0, .6);
-      padding: 10%;
-      border-radius: 36px;
+      background: linear-gradient(to top, black 0, transparent 70%);
+      padding: 10% 10% 3% 5%;
     }
   }
 }
