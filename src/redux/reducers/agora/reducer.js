@@ -9,7 +9,8 @@ const initialState = {
     currentStream: undefined,
     isStreaming:   false,
     isInsideStream: false,
-    streamID: null
+    streamID: null,
+    hostID: null
 };
 
 const initAgora = (state) => update( state, {
@@ -28,6 +29,8 @@ const setClientRole = (state, { payload }) => update( state, {
 const resetStream = (state) => update( state, {
     currentStream: { $set: undefined },
     isStreaming:   { $set: false },
+    hostID:        { $set: null },
+    streamID:      { $set: null },
 } );
 
 const setIsInsideStream  = (state, { payload }) => update( state, {
@@ -38,6 +41,10 @@ const setStreamId  = (state, { payload }) => update( state, {
     streamID: { $set: payload },
 } );
 
+const setHostId = (state, { payload }) => update( state, {
+    hostID: { $set: payload },
+} );
+
 // Reducer
 export default createReducer(initialState, {
     [localTypes.AGORA_CLIENT_INITIALIZED]: initAgora,
@@ -46,4 +53,5 @@ export default createReducer(initialState, {
     [localTypes.AGORA_EXIT_STREAM]:        resetStream,
     [localTypes.AGORA_SET_IS_INSIDE_STREAM]: setIsInsideStream,
     [localTypes.AGORA_SET_STREAM_ID]: setStreamId,
+    [localTypes.AGORA_SET_HOST_ID]: setHostId,
 });

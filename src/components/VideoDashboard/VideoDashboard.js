@@ -29,9 +29,9 @@ class VideoDashboard extends React.Component {
         );
   }
 
-  goToStream = (vidTitle) => {
-    const { uid } = this.props;
-    store.dispatch(streamActions.agoraSetStreamID({streamID: vidTitle, userID: uid}));
+  goToStream = (video) => {
+    store.dispatch(streamActions.agoraSetHostID(video.userId));
+    store.dispatch(streamActions.agoraSetStreamID(video.videoTitle));
     store.dispatch(streamActions.agoraSetIsInsideStream(true));
   }
 
@@ -44,7 +44,7 @@ class VideoDashboard extends React.Component {
           const category = vid.data.category? vid.data.category.toLowerCase(): '';
           const videoContainerClasses = classNames('video-container', { 'is-live': vid.isPalying }, category);
           return (
-            <div onClick={() => this.goToStream(vid.data.videoTitle)} key={vid.id} className={videoContainerClasses}>
+            <div onClick={() => this.goToStream(vid.data)} key={vid.id} className={videoContainerClasses}>
               <div className='title'>{vid.data.videoTitle}</div>
             </div>
           );

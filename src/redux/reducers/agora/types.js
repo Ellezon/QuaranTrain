@@ -5,4 +5,5 @@ export default {
     AGORA_EXIT_STREAM:          'agora/EXIT_STREAM',
     AGORA_SET_IS_INSIDE_STREAM: 'agora/AGORA_SET_IS_INSIDE_STREAM',
     AGORA_SET_STREAM_ID:        'agora/AGORA_SET_STREAM_ID',
+    AGORA_SET_HOST_ID:        'agora/AGORA_SET_HOST_ID',
 };

@@ -29,10 +29,16 @@ export default {
             payload: isInsideStream,
         };
     },
-    agoraSetStreamID( {streamID, userID} ) {
+    agoraSetStreamID( streamID ) {
         return {
             type: localTypes.AGORA_SET_STREAM_ID,
-            payload: {streamID, userID},
+            payload: streamID,
+        };
+    },
+    agoraSetHostID( hostID ) {
+        return {
+            type: localTypes.AGORA_SET_HOST_ID,
+            payload: hostID,
         };
     },
 };
