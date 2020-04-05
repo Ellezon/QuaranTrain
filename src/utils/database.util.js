@@ -129,3 +129,17 @@ export function getVideos(number) {
 
   });
 }
+
+export function deleteVideo(videoID) {
+  return new Promise(function (resolve, error) {
+    videoCollRef.doc(videoID)
+      .delete()
+      .then(() => {
+        console.log('Video deleted');
+        resolve();
+      }).catch((err) => {
+        console.log('Error deleting video', err);
+        error(err);
+      });
+  });
+}
