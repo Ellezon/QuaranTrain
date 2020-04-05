@@ -40,13 +40,6 @@ class App extends React.Component {
                     const profileInfo = result.additionalUserInfo.profile;
                     dbFns.addStudent(result.user.uid, profileInfo.given_name, profileInfo.family_name, profileInfo.picture, profileInfo.email);
                 }
-                this.setState({
-                    isLoading: false
-                })
-                if (window.sessionStorage.getItem('googleLoginPending')) {
-                    window.sessionStorage.removeItem('googleLoginPending');
-                }
-
                 return result;
             }
         }).catch(function (error) {
@@ -58,6 +51,12 @@ class App extends React.Component {
             if (user !== null) {
                 const dbUser = await dbFns.getStudent(user.uid);
                 store.dispatch(userAction.loginUser(user));
+                if (window.sessionStorage.getItem('googleLoginPending')) {
+                    window.sessionStorage.removeItem('googleLoginPending');
+                }
+                this.setState({
+                    isLoading: false
+                })
                 consoleUtil('auth', `User authenticated => ${JSON.stringify(dbUser)}`);
             } else {
                 store.dispatch(userAction.finishAuth());
