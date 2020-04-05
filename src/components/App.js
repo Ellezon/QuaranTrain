@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import '../styles/main.scss';
-import { Route, Switch, Link } from 'react-router-dom';
 
 import consoleUtil from '@/utils/console.util';
 
@@ -39,7 +38,6 @@ class App extends React.Component {
             console.log('lala', user);
             if (user !== null) {
                 const dbUser = await dbFns.getStudent(user.uid);
-
                 store.dispatch(userAction.loginUser(dbUser));
                 consoleUtil('auth', `User authenticated => ${JSON.stringify(dbUser)}`);
             } else {
@@ -88,10 +86,7 @@ class App extends React.Component {
             </div>
         )
     }
-
-
 }
-
 
 const mapStateToProps = (state) => ({
     isLoggedIn:   getUserIsLoggedIn(state),
